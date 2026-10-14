@@ -1,0 +1,43 @@
+{
+  "info": {
+    "_postman_id": "2c2b7e29-6fe3-4e6d-adb2-89ad8a15a27b",
+    "name": "FX Rates API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34764647"
+  },
+  "item": [
+    {
+      "name": "Get Latest Rates",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\nconst body = pm.response.json();\r\nconst base = pm.environment.get(\"baseCurrency\");\r\nconst targets = pm.environment\r\n    .get(\"targetCurrencies\")\r\n    .split(\",\")\r\n    .map(c => c.trim());\r\nconst maxTime = Number(\r\n    pm.environment.get(\"maxResponseTime\")\r\n);\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time is within configured limit\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(maxTime);\r\n});\r\n\r\npm.test(\"Response result is success\", function () {\r\n    pm.expect(body.result).to.eql(\"success\");\r\n});\r\n\r\npm.test(\"Base currency matches environment\", function () {\r\n    pm.expect(body.base_code).to.eql(base);\r\n});\r\n\r\npm.test(\"Rates object exists\", function () {\r\n    pm.expect(body.rates).to.be.an(\"object\");\r\n});\r\n\r\npm.test(\"Target currencies have positive numeric rates\", function () {\r\n    targets.forEach(function (currency) {\r\n        pm.expect(body.rates).to.have.property(currency);\r\n        pm.expect(body.rates[currency]).to.be.a(\"number\");\r\n        pm.expect(body.rates[currency]).to.be.above(0);\r\n    });\r\n});\r\n\r\npm.test(\"Base currency rate equals 1\", function () {\r\n    pm.expect(body.rates[base]).to.eql(1);\r\n});\r\n\r\n\r\nif (body.rates && typeof body.rates.SAR === \"number\") {\r\n    pm.environment.set(\"capturedSarRate\", body.rates.SAR);\r\n}\r\n\r\npm.test(\"Captured SAR rate is valid\", function () {\r\n    const rate = Number(pm.environment.get(\"capturedSarRate\"));\r\n    pm.expect(rate).to.be.a(\"number\");\r\n    pm.expect(rate).to.be.above(0);\r\n});\r\n\r\npm.test(\"Requested base currency matches response\", function () {\r\n    const requestedBase = pm.environment.get(\"baseCurrency\");\r\n    const responseBody = pm.response.json();\r\n\r\n    pm.expect(responseBody.base_code).to.eql(requestedBase);\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://open.er-api.com/v6/latest/{{baseCurrency}}",
+          "protocol": "https",
+          "host": [
+            "open",
+            "er-api",
+            "com"
+          ],
+          "path": [
+            "v6",
+            "latest",
+            "{{baseCurrency}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
