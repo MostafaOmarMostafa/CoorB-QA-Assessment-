@@ -1,0 +1,34 @@
+{
+	"id": "66ac0d02-d07c-4679-9db9-f8fb1e7e9f3c",
+	"name": "FX Testing Environment",
+	"values": [
+		{
+			"key": "baseCurrency",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "targetCurrencies",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "maxResponseTime",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "capturedSarRate",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"color": null,
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2026-10-14T22:00:54.344Z",
+	"_postman_exported_using": "Postman/12.29.5"
+}
