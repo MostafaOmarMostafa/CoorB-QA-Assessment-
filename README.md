@@ -10,7 +10,7 @@ This repository contains my submission for the Quality Engineering assessment. I
 - **Task 2 — Exploratory Testing & Bug Reporting:** `task-2/README.md`
 - **Task 3 — API Testing:** `task-3/README.md`
 - **Task 4 — Automation Design:** `task-4/automation-design.md`
-- **Task 5 — Quality Strategy & Release Judgement:** `task-5/README.md`
+- **Task 5 — Quality Strategy & Release Judgement:** `task5/README.md`
 
 ## Time Spent
 
